@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خدمات المبرمجين</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea, input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        select {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>خدمات المبرمجين</h1>
+    
+    <!-- قسم تشفير الكود -->
+    <h2>تشفير الكود</h2>
+    <select id="languageSelectEncrypt">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="csharp">C#</option>
+        <option value="php">PHP</option>
+        <option value="ruby">Ruby</option>
+    </select>
+    <textarea id="inputCodeEncrypt" placeholder="أدخل الكود هنا..."></textarea>
+    <button onclick="encryptCode()">تشفير</button>
+    <h2>الكود المشفر</h2>
+    <textarea id="encryptedCode" readonly placeholder="الكود المشفر سيظهر هنا..."></textarea>
+
+    <!-- قسم فك تشفير الكود -->
+    <h2>فك تشفير الكود</h2>
+    <textarea id="inputEncryptedCode" placeholder="أدخل الكود المشفر هنا..."></textarea>
+    <button onclick="decryptCode()">فك التشفير</button>
+    <h2>الكود المفكوك</h2>
+    <textarea id="decryptedCode" readonly placeholder="الكود المفكوك سيظهر هنا..."></textarea>
+
+    <!-- قسم تصحيح الكود -->
+    <h2>تصحيح الكود</h2>
+    <select id="languageSelectDebug">
+        <option value="javascript">JavaScript</option>
+        <option value="python">Python</option>
+        <option value="java">Java</option>
+        <option value="csharp">C#</option>
+        <option value="php">PHP</option>
+        <option value="ruby">Ruby</option>
+    </select>
+    <textarea id="inputCodeDebug" placeholder="أدخل الكود هنا..."></textarea>
+    <button onclick="debugCode()">تصحيح</button>
+    <h2>نتيجة التصحيح</h2>
+    <textarea id="debuggedCode" readonly placeholder="نتيجة التصحيح ستظهر هنا..."></textarea>
+
+    <!-- قسم توليد كلمات المرور -->
+    <h2>توليد كلمات مرور عشوائية</h2>
+    <input type="number" id="passwordLength" placeholder="أدخل طول كلمة المرور" min="1" max="20">
+    <button onclick="generatePassword()">توليد كلمة مرور</button>
+    <h2>كلمة المرور العشوائية</h2>
+    <textarea id="generatedPassword" readonly placeholder="كلمة المرور ستظهر هنا..."></textarea>
+</div>
+
+<script>
+    function encryptCode() {
+        const code = document.getElementById('inputCodeEncrypt').value;
+        const encrypted = btoa(code);
+        document.getElementById('encryptedCode').value = encrypted;
+    }
+
+    function decryptCode() {
+        const encryptedCode = document.getElementById('inputEncryptedCode').value;
+        try {
+            const decrypted = atob(encryptedCode);
+            document.getElementById('decryptedCode').value = decrypted;
+        } catch (e) {
+            document.getElementById('decryptedCode').value = "خطأ: يرجى إدخال كود مشفر صحيح.";
+        }
+    }
+
+    function debugCode() {
+        const code = document.getElementById('inputCodeDebug').value;
+        // هنا يمكنك إضافة منطق تصحيح الكود حسب اللغة المختارة
+        document.getElementById('debuggedCode').value = `تم إدخال الكود:\n${code}`;
+    }
+
+    function generatePassword() {
+        const length = document.getElementById('passwordLength').value;
+        const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+";
+        let password = "";
+        for (let i = 0; i < length; i++) {
+            const randomIndex = Math.floor(Math.random() * charset.length);
+            password += charset[randomIndex];
+        }
+        document.getElementById('generatedPassword').value = password;
+    }
+</script>
+
+</body>
+</html>
